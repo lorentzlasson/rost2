@@ -1,0 +1,3 @@
+- phrase: do thing
+  http:
+    url: www.things.do.it

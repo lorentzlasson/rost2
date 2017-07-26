@@ -1,0 +1,11 @@
+- phrase: 'pour ${n} beer'
+  http:
+    url: 'iot.home/beer?n=${n}'
+- phrase: 'play song ${s}'
+  http:
+    url: 'mediaplayer.com/play?song=${s}'
+- phrase: 'remind me ${x}'
+  http:
+    url: app.home/note
+    body:
+      note: '${x}'

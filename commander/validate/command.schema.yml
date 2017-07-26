@@ -1,0 +1,25 @@
+type: object
+required:
+  - phrase
+  - http
+properties:
+  phrase:
+    type: string
+  http:
+    type: object
+    required:
+      - url
+    properties:
+      url:
+        type: string
+      method:
+        type: string
+        default: POST
+      port:
+        type: string
+        default: '80'
+      protocol:
+        type: string
+        default: https
+      body:
+        type: object
