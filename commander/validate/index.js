@@ -1,9 +1,10 @@
 const fs = require('fs')
+const path = require('path')
 const yaml = require('js-yaml')
 const Ajv = require('ajv')
 
 const schema = yaml.load(
-  fs.readFileSync('./validate/command.schema.yml')
+  fs.readFileSync(path.join(__dirname, 'command.schema.yml'))
 )
 
 const [validator, defaulter] = [ false, true ]

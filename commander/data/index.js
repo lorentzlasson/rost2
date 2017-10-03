@@ -1,8 +1,9 @@
 const fs = require('fs')
+const path = require('path')
 const yaml = require('js-yaml')
 
-const DB_PATH = './data/db.yml'
-const SEED_PATH = './data/seed.yml'
+const DB_PATH = path.join(__dirname, 'db.yml')
+const SEED_PATH = path.join(__dirname, 'seed.yml')
 
 const validate = require('../validate')
 
