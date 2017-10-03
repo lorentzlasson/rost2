@@ -8,6 +8,9 @@ const ROUTER = {
       'POST':    require('./command/create'),
       'DELETE':  require('./command/delete')
     }
+  },
+  methods: {
+    'POST': require('./trigger'),
   }
 }
 
