@@ -15,14 +15,14 @@ log.flow('Default')
 require('../../script/clear_db')
 
 module.exports =
-r('GET', '/')
+r('GET', '/command')
   .then(res => {
     asserter(res)
       .status(200)
       .body_length(0)
 
     // post invalid json
-    return r('POST', '/', '')
+    return r('POST', '/command', '')
   })
   .then(res => {
     asserter(res)
@@ -33,7 +33,7 @@ r('GET', '/')
       })
 
     // post invalid body
-    return r('POST', '/', {})
+    return r('POST', '/command', {})
   })
   .then(res => {
     asserter(res)
@@ -54,7 +54,7 @@ r('GET', '/')
       })
 
     // post valid body
-    return r('POST', '/', {
+    return r('POST', '/command', {
       phrase: 'do stuff',
       http: {
         url: 'www.stuff.do.it'
@@ -72,7 +72,7 @@ r('GET', '/')
       })
 
     // get with defaults
-    return r('GET', '/?defaults=true')
+    return r('GET', '/command?defaults=true')
   })
   .then(res => {
     asserter(res)
@@ -91,7 +91,7 @@ r('GET', '/')
       ])
 
     // get without defaults
-    return r('GET', '/')
+    return r('GET', '/command')
   })
   .then(res => {
     asserter(res)
@@ -107,7 +107,7 @@ r('GET', '/')
       ])
 
     // post non-unique phrase
-    return r('POST', '/', {
+    return r('POST', '/command', {
       phrase: 'do stuff',
       http: {
         url: 'www.things.do.it'
@@ -123,7 +123,7 @@ r('GET', '/')
       })
 
     // post another valid body
-    return r('POST', '/', {
+    return r('POST', '/command', {
       phrase: 'do thing',
       http: {
         url: 'www.things.do.it'
@@ -140,7 +140,7 @@ r('GET', '/')
         }
       })
 
-    return r('GET', '/')
+    return r('GET', '/command')
   })
   .then(res => {
     asserter(res)
@@ -148,7 +148,7 @@ r('GET', '/')
       .body_length(2)
 
     // delete a phrase
-    return r('DELETE', '/?id=do%20stuff')
+    return r('DELETE', '/command?id=do%20stuff')
   })
   .then(res => {
     asserter(res)
@@ -160,7 +160,7 @@ r('GET', '/')
         }
       })
 
-    return r('GET', '/')
+    return r('GET', '/command')
   })
   .then(res => {
     asserter(res)

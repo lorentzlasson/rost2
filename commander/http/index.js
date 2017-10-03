@@ -1,13 +1,28 @@
 const http = require('http')
+const url = require('url')
 
-const ROUTES = {
-  'GET'    :  require('./list'),
-  'POST'   :  require('./create'),
-  'DELETE' :  require('./delete')
+const ROUTER = {
+  command: {
+    methods: {
+      'GET':     require('./command/list'),
+      'POST':    require('./command/create'),
+      'DELETE':  require('./command/delete')
+    }
+  }
 }
-const METHODS = Object.keys(ROUTES)
 
-const available = method => METHODS.includes(method)
+const action = (pathname, method) => {
+  const resources = pathname.split('/').filter(x => x) // no empty
+  return _action(ROUTER, resources, method)
+}
+
+const _action = (router, resources, method) => {
+  if(!router) return // invalid path
+  if(resources.length == 0) return router.methods[method]
+
+  const [head, ...tail] = resources
+  return _action(router[head], tail, method)
+}
 
 const not_found = res => {
   res.statusCode = 404
@@ -15,6 +30,11 @@ const not_found = res => {
 }
 
 module.exports = http.createServer((req, res) => {
-  if(!available(req.method)) not_found(res)
-  else ROUTES[req.method](req, res)
+  const pathname = url.parse(req.url).pathname
+  const method = req.method
+
+  const a = action(pathname, method)
+  if(!a) return not_found(res)
+
+  a(req, res)
 })

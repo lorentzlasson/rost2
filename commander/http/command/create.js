@@ -1,6 +1,6 @@
-const read_json = require('./read_json')
-const responder = require('./responder')
-const data = require('../data')
+const read_json = require('../read_json')
+const responder = require('../responder')
+const data = require('../../data')
 
 module.exports = (req, res) => {
   read_json(req)
